@@ -12,7 +12,10 @@ function init(){
 			frames: document.getElementById("list__frames"),
 			errors: document.getElementById("list__errors"),
 			addFrame: document.getElementById("input__generator__add_frame"),
-			generate: document.getElementById("input__generator__generate")
+			generate: document.getElementById("input__generator__generate"),
+			canvas: document.getElementById("output__generator__canvas"),
+			canvasInputHeight: document.getElementById("input__canvas__height"),
+			canvasInputWidth: document.getElementById("input__canvas__width")
 		}
 	}
 
@@ -20,6 +23,14 @@ function init(){
 	//EVENT LISTENERS
 	//------------------------------
 	app.elements.addFrame.addEventListener("click", addFrameOption);
+	app.elements.canvasInputHeight.addEventListener("change", syncCanvasDimenions);
+	app.elements.canvasInputWidth.addEventListener("change", syncCanvasDimenions);
+
+
+	//SETUP
+	//-----------------------------
+	syncCanvasDimenions();
+
 
 
 	//EVENT HANDLING
@@ -48,6 +59,19 @@ function init(){
 		validateInputs(app.elements.frames, app.elements.addFrame, "Make sure every frame has a file!");
 		validateInputs(app.elements.app, app.elements.generate);
 	}//selectFrameFile
+	function syncCanvasDimenions(){
+		const {
+			canvasInputWidth,
+			canvasInputHeight,
+			canvas
+		} = app.elements;
+
+		const width  = canvasInputWidth.value;
+		const height = canvasInputHeight.value;
+
+		canvas.width = width;
+		canvas.height = height;
+	}//syncCanvasDimensions
 
 
 	//UTILS
