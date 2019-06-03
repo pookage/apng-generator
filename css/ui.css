@@ -1,9 +1,28 @@
-.frames__frame {
-	max-width: 100px;
-	height: auto;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
+.frames {}
+	.frames__item {
+		display: inline-flex;
+		flex-direction: column;
+		vertical-align: middle;
+	}
+		.frames__frame {
+			max-width: 100px;
+			height: auto;
+		}
+		.frames__frame:not([src=""]) ~ input{
+			display: none;
+		}
+		.frames__frame:not([src=""]){
+			border: 1px dotted #000;
+		}
+
 .output {
+	font-size: 0;
 	display: inline-block;
 	background: url("./../assets/transparent.png") left top / 150px repeat ;
 }

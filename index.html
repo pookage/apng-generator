@@ -33,6 +33,9 @@
 						min="0" 
 						required
 					>
+					<small>
+						Height of the canvas in px		
+					</small>
 				</div>
 				<div>
 					<label 
@@ -46,6 +49,9 @@
 						min="0" 
 						required
 					>
+					<small>
+						Width of the canvas in px		
+					</small>
 				</div>
 			</fieldset>
 
@@ -65,19 +71,25 @@
 						min="0"
 						required
 					>
+					<small>
+						Number of times the animation should repeat (0 is infinite)
+					</small>
 				</div>
 				<div>
 					<label 
-						for="input__generator__delay">
-						Delay
+						for="input__generator__fps">
+						FPS
 					</label>
 					<input 
-						id="input__generator__delay" 
+						id="input__generator__fps" 
 						type="number" 
-						value="16" 
-						min="16" 
+						value="24" 
+						max="60"
 						required
 					>
+					<small>
+						Number of animation frames to show every second
+					</small>
 				</div>
 				<div>
 					<label 
@@ -85,7 +97,8 @@
 						Dispose
 					</label>
 					<input 
-						id="input__generator__dispose" 
+						id="input__generator__dispose"
+						data-label="dispose" 
 						type="range" 
 						value="2" 
 						min="0" 
@@ -93,6 +106,7 @@
 						step="1" 
 						required
 					>
+					<details></details>
 				</div>
 				<div>
 					<label 
@@ -101,6 +115,7 @@
 					</label>
 					<input 
 						id="input__generator__blend" 
+						data-label="blend"
 						type="range" 
 						value="0" 
 						min="0" 
@@ -108,6 +123,7 @@
 						step="1" 
 						required
 					>
+					<details></details>
 				</div>
 			</fieldset>
 			<fieldset>
@@ -115,7 +131,8 @@
 					Frames
 				</legend>
 				<ul 
-					id="list__frames">	
+					id="list__frames"
+					class="frames">	
 				</ul>
 				<button 
 					id="input__generator__add_frame" >
