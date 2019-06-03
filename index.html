@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+
+		<link rel="stylesheet" href="css/ui.css">
+
+		<script src="js/canvas2apng.js"></script>
+		<script src="js/ui.js"></script>
+		<script>
+			const repeat  = 0;  // (int) iteration count (0 is infinite)
+			const delay   = 80; // (number) ms delay between frames
+			const dispose = 0;  // (int) [0,1,2] none / background / previous
+			const blend   = 1;  // (int) [0,1] replace / blend
+		</script>
+	</head>
+	<body>
+		<form id="app">
+			<fieldset>
+				<legend>
+					Canvas Controls
+				</legend>
+				<div>
+					<label 
+						for="input__canvas__height">
+						Canvas Height
+					</label>
+					<input
+						id="input__canvas__height"  
+						type="number" 
+						value="500" 
+						min="0" 
+						required
+					>
+				</div>
+				<div>
+					<label 
+						for="input__canvas__width">
+						Canvas Width
+					</label>
+					<input
+						id="input__canvas__width" 
+						type="number"
+						value="500" 
+						min="0" 
+						required
+					>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend>
+					Generator Controls
+				</legend>
+				<div>
+					<label 
+						for="input__generator__repeat">
+						Repeat
+					</label>
+					<input
+						id="input__generator__repeat" 
+						type="number" 
+						value="0" 
+						min="0"
+						required
+					>
+				</div>
+				<div>
+					<label 
+						for="input__generator__delay">
+						Delay
+					</label>
+					<input 
+						id="input__generator__delay" 
+						type="number" 
+						value="16" 
+						min="16" 
+						required
+					>
+				</div>
+				<div>
+					<label 
+						for="input__generator__dispose">
+						Dispose
+					</label>
+					<input 
+						id="input__generator__dispose" 
+						type="range" 
+						value="2" 
+						min="0" 
+						max="2" 
+						step="1" 
+						required
+					>
+				</div>
+				<div>
+					<label 
+						for="input__generator__blend">
+						Blend
+					</label>
+					<input 
+						id="input__generator__blend" 
+						type="range" 
+						value="0" 
+						min="0" 
+						max="1" 
+						step="1" 
+						required
+					>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>
+					Frames
+				</legend>
+				<ul 
+					id="list__frames">	
+				</ul>
+				<button 
+					id="input__generator__add_frame" >
+					Add additional frame
+				</button>
+			</fieldset>
+
+			<input 
+				id="input__generator__generate" 
+				type="submit" 
+				value="Generate APNG" 
+				disabled
+			>
+
+			<aside>
+				<ul 
+					id="list__errors">
+				</ul>
+			</aside>
+
+			<output>
+				<canvas 
+					id="apng-source-canvas">	
+				</canvas>
+			</output>
+		</form>
+	</body>
+</html>
