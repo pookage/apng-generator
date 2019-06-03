@@ -3,6 +3,7 @@
 	height: auto;
 }
 
-.generator__canvas {
+.generator__canvas,
+.generator__image {
 	border: 1px solid #000;
 }
