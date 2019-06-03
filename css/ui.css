@@ -3,7 +3,13 @@
 	height: auto;
 }
 
-.generator__canvas,
+.output {
+	display: inline-block;
+	background: url("./../assets/transparent.png") left top / 150px repeat ;
+}
+.generator__canvas {
+	display: none;
+}
 .generator__image {
-	border: 1px solid #000;
+	
 }

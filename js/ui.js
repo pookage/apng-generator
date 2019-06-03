@@ -52,15 +52,12 @@ function init(){
 	}//addFrameOption
 	function selectFrameFile(preview, event){
 		const [ file ] = event.target.files;
-		const reader   = new FileReader();
+		const imageSrc = URL.createObjectURL(file);
+		const frame    = new Image();
 
-		reader.addEventListener("load", () => {
-			const fileData = reader.result;
-			preview.src    = fileData;
-			app.frames.push(fileData) //make best to do this at the end?
-		});
-
-		reader.readAsDataURL(file);
+		frame.src   = imageSrc;
+		preview.src = imageSrc;
+		app.frames.push(frame);
 
 		validateInputs(app.elements.frames, app.elements.addFrame, "Make sure every frame has a file!");
 		validateInputs(app.elements.app, app.elements.generate);
@@ -75,11 +72,13 @@ function init(){
 		app.elements.image.width   = width;
 		app.elements.image.height  = height;
 	}//syncOutputDimensions
-	function generateAPNG(){
+	function generateAPNG(event){
+
+		event.preventDefault();
 
 		//grab everything we need from the UI
 		const repeat  = app.elements.repeat.value;
-		const delay   = app.elements.delay.value;
+		const delay   = app.elements.delay.value / 10;
 		const dispose = app.elements.dispose.value;
 		const blend   = app.elements.blend.value;
 		const output  = app.elements.image;
@@ -93,12 +92,13 @@ function init(){
 
 		//draw all the frames and save them ready
 		encoder.start();
-		drawFrames();
+		drawFrames(encoder);
 		encoder.finish();
 
 		const base64 = bytesToBase64(encoder.stream().bin);
+		const imgURL = `data:image/png;base64,${base64}`;
 
-
+		app.elements.image.src = imgURL;
 	}//generateAPNG
 
 
@@ -150,6 +150,28 @@ function init(){
 		app.elements.errors.innerHTML = "";
 		app.elements.errors.appendChild(fragment)
 	}//renderErrors
+	//canvas
+	function drawFrames(encoder){
+
+		const { 
+			width,     // (number) of natural pixels in width the canvas has
+			height,    // (number) of natural pixels in height the canvas has
+		} = app.elements.canvas;
+	
+		const context = app.elements.canvas.getContext("2d");
+
+		context.clearRect(0, 0, width, height);
+		context.save();
+
+		for(let frame of app.frames){
+
+			console.log("drawing", frame, width, height)
+
+			context.drawImage(frame, 0, 0, width, height);
+			encoder.addFrame(context);
+			context.clearRect(0, 0, width, height);
+		}
+	}//drawFrames
 
 
 }//init
