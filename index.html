@@ -2,150 +2,187 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Document</title>
+		<title>APNG Generator</title>
 
 		<link rel="stylesheet" href="css/ui.css">
 
 		<script src="js/canvas2apng.js"></script>
 		<script src="js/ui.js"></script>
-		<script>
-			const repeat  = 0;  // (int) iteration count (0 is infinite)
-			const delay   = 80; // (number) ms delay between frames
-			const dispose = 0;  // (int) [0,1,2] none / background / previous
-			const blend   = 1;  // (int) [0,1] replace / blend
-		</script>
 	</head>
 	<body>
-		<form id="app">
-			<fieldset>
-				<legend>
-					Canvas Controls
-				</legend>
-				<div>
-					<label 
-						for="input__canvas__height">
-						Canvas Height
-					</label>
-					<input
-						id="input__canvas__height"  
-						type="number" 
-						value="200" 
-						min="0" 
-						required
-					>
-					<small>
-						Height of the canvas in px		
-					</small>
-				</div>
-				<div>
-					<label 
-						for="input__canvas__width">
-						Canvas Width
-					</label>
-					<input
-						id="input__canvas__width" 
-						type="number"
-						value="500" 
-						min="0" 
-						required
-					>
-					<small>
-						Width of the canvas in px		
-					</small>
-				</div>
-			</fieldset>
+		<form
+			class="wrapper" 
+			id="app">
 
-			<fieldset>
-				<legend>
-					Generator Controls
-				</legend>
-				<div>
-					<label 
-						for="input__generator__repeat">
-						Repeat
-					</label>
-					<input
-						id="input__generator__repeat" 
-						type="number" 
-						value="0" 
-						min="0"
-						required
-					>
-					<small>
-						Number of times the animation should repeat (0 is infinite)
-					</small>
-				</div>
-				<div>
-					<label 
-						for="input__generator__fps">
-						FPS
-					</label>
-					<input 
-						id="input__generator__fps" 
-						type="number" 
-						value="24" 
-						max="60"
-						required
-					>
-					<small>
-						Number of animation frames to show every second
-					</small>
-				</div>
-				<div>
-					<label 
-						for="input__generator__dispose">
-						Dispose
-					</label>
-					<input 
-						id="input__generator__dispose"
-						data-label="dispose" 
-						type="range" 
-						value="2" 
-						min="0" 
-						max="2" 
-						step="1" 
-						required
-					>
-					<details></details>
-				</div>
-				<div>
-					<label 
-						for="input__generator__blend">
-						Blend
-					</label>
-					<input 
-						id="input__generator__blend" 
-						data-label="blend"
-						type="range" 
-						value="0" 
-						min="0" 
-						max="1" 
-						step="1" 
-						required
-					>
-					<details></details>
-				</div>
-			</fieldset>
-			<fieldset>
-				<legend>
-					Frames
-				</legend>
-				<ul 
-					id="list__frames"
-					class="frames">	
-				</ul>
-				<button 
-					id="input__generator__add_frame" >
-					Add additional frame
-				</button>
-			</fieldset>
+			<!-- OUPUT IMAGE AND CANVAS
+			--------------------------------------> 
+			<output class="output">
+				<canvas 
+					class="output__canvas"	
+					id="output__generator__canvas">
+				</canvas>
+				<img 
+					class="output__image" 
+					id="output__generator__image"
+				/>
+			</output>
 
-			<input 
-				id="input__generator__generate" 
-				type="submit" 
-				value="Generate APNG" 
-				disabled
-			>
+			<div class="controls">
+
+				<!-- BASIC CONTROLS 
+				--------------------------------------> 
+				<div class="controls__basic">
+				
+					<!-- LIST OF FRAMES 
+					-------------------------------------->
+					<ul class="frames__wrapper" 
+						id="list__frames">	
+					</ul>
+
+					<!-- CANVAS DIMENSION CONTROLS 
+					-------------------------------------->
+					<div class="controls__basic">
+						<div class="input__wrapper">
+							<label
+								class="input__label" 
+								for="input__canvas__height">
+								Canvas Height
+							</label>
+							<input
+								class="input__element input__number"
+								id="input__canvas__height"
+								title="Height of the canvas in px"  
+								type="number" 
+								value="200" 
+								min="0" 
+								required
+							>
+						</div>
+						<div class="input__wrapper">
+							<label
+								class="input__label" 
+								for="input__canvas__width">
+								Canvas Width
+							</label>
+							<input
+								class="input__element input__number"
+								id="input__canvas__width"
+								title="Width of the canvas in px" 
+								type="number"
+								value="500" 
+								min="0" 
+								required
+							>
+						</div>
+						<div class="input__wrapper">
+							<label
+								class="input__label" 
+								for="input__generator__fps">
+								FPS
+							</label>
+							<input
+								class="input__element input__number" 
+								id="input__generator__fps"
+								title="Number of animation frames to show every second" 
+								type="number" 
+								value="24" 
+								max="60"
+								required
+							>
+						</div>
+						<div class="input__wrapper">
+							<button
+								class="input__element input__button" 
+								id="input__generator__add_frame">
+								Add Frame
+							</button>
+						</div>
+						<div class="input__wrapper">
+							<input
+								class="input__element input__button" 
+								id="input__generator__generate"
+								type="submit" 
+								value="Generate" 
+								disabled
+							>
+						</div>
+					</div>
+				</div>
+
+				<!-- ADVANCED CONTROLS
+				--------------------------------------> 
+				<div class="controls__advanced">
+					<div class="input__wrapper">
+						<label
+							class="input__label" 
+							for="input__generator__repeat">
+							Repeat
+						</label>
+						<input
+							class="input__element input__number"
+							id="input__generator__repeat" 
+							type="number" 
+							value="0" 
+							min="0"
+							required
+						>
+						<small class="input__tooltip input__tooltip__basic">
+							Number of times the animation should repeat (0 is infinite)
+						</small>
+					</div>
+					
+					<div class="input__wrapper">
+						<label
+							class="input__label" 
+							for="input__generator__dispose">
+							Dispose
+						</label>
+						<input
+							class="input__element input__range" 
+							id="input__generator__dispose"
+							data-label="dispose" 
+							type="range" 
+							value="2" 
+							min="0" 
+							max="2" 
+							step="1" 
+							required
+						>
+						<details 
+							class="input__tooltip input__tooltip__advanced">	
+						</details>
+					</div>
+					<div class="input__wrapper">
+						<label
+							class="input__label" 
+							for="input__generator__blend">
+							Blend
+						</label>
+						<input
+							class="input__element input__range" 
+							id="input__generator__blend" 
+							data-label="blend"
+							type="range" 
+							value="0" 
+							min="0" 
+							max="1" 
+							step="1" 
+							required
+						>
+						<details 
+							class="input__tooltip input__tooltip__advanced">	
+						</details>
+					</div>
+				</div>
+			</div>
+
+			
+
+			
+			
+
+
+			
 
 			<aside>
 				<ul 
@@ -153,16 +190,7 @@
 				</ul>
 			</aside>
 
-			<output class="output">
-				<canvas 
-					id="output__generator__canvas"
-					class="generator__canvas">	
-				</canvas>
-				<img 
-					id="output__generator__image"
-					class="generator__image" 
-				/>
-			</output>
+			
 		</form>
 	</body>
 </html>

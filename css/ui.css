@@ -4,31 +4,57 @@
 	box-sizing: border-box;
 }
 
-.frames {}
-	.frames__item {
-		display: inline-flex;
-		flex-direction: column;
-		vertical-align: middle;
+.wrapper {}
+
+	/* OUTPUT CANVAS / IMAGE 
+	-----------------------------------*/
+	.output {
+		font-size: 0;
+		display: inline-block;
+		background: url("./../assets/transparent.png") left top / 150px repeat ;
 	}
-		.frames__frame {
-			max-width: 100px;
-			height: auto;
-		}
-		.frames__frame:not([src=""]) ~ input{
+		.output__canvas {
 			display: none;
 		}
-		.frames__frame:not([src=""]){
-			border: 1px dotted #000;
+		.output__image {
+			
+		}
+	.controls {}
+		.controls__basic {}
+		.controls__advanced {
+			display: none; /* JUST SO THAT WE CAN DO EVERYTHING ELSE FIRST*/
 		}
 
-.output {
-	font-size: 0;
-	display: inline-block;
-	background: url("./../assets/transparent.png") left top / 150px repeat ;
-}
-.generator__canvas {
-	display: none;
-}
-.generator__image {
-	
-}
+		/* FRAME LIST
+		--------------------------------*/
+		.frames__wrapper {}
+			.frames__item {
+				display: inline-flex;
+				flex-direction: column;
+				vertical-align: middle;
+			}
+				.frames__frame {
+					max-width: 100px;
+					height: auto;
+				}
+				.frames__frame:not([src=""]) ~ input{
+					display: none;
+				}
+				.frames__frame:not([src=""]){
+					border: 1px dotted #000;
+				}
+
+		/* CONTROLS / INPUTS
+		--------------------------------*/	
+		.input__wrapper {}
+			.input__label {}
+			.input__element {}
+			.input__element.input__number {}
+			.input__element.input__button {}
+			.input__element.input__range {}
+			.input__tooltip {}
+			.input__tooltip__basic {}
+			.input__tooltip__advanced {}
+
+
+
