@@ -116,7 +116,6 @@ html {
 				justify-content: center;
 				align-items: center;
 				vertical-align: middle;
-				overflow: hidden;
 			}
 				.frames__frame {
 					width: 100%;
@@ -146,6 +145,9 @@ html {
 					width: 100px;
 					padding: 1em;
 					border: 2px solid #000;
+				}
+				.frames__item + .frames__item:last-child .frames__frame[src=""] ~ .frames__label {
+					margin-left: 1em;
 				}
 					.frames__label::after {
 						content: "";
@@ -233,13 +235,15 @@ html {
 				.input__element.input__button {
 					border-color: var(--color__btn_border__rest);
 					background: var(--gradient__btn__rest);
-
 					transition: border-color 1s, background 1s;
 				}
-					.input__element.input__button:hover {
+					.input__element.input__button:not(:disabled):hover {
 						cursor: pointer;
 						background: var(--gradient__btn__hover);
 						border-color: var(--color__btn_border__focus);
+					}
+					.input__element.input__button:disabled:hover {
+						cursor: not-allowed;
 					}
 				.input__element.input__range {}
 				.input__tooltip {}
