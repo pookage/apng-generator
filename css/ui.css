@@ -9,11 +9,33 @@ html, body {
 	height: 100%;
 }
 
+input, button {
+	appearance: none;
+	-webkit-appearance: none;
+	border: 0;
+	font-size: 1em;
+}
+
+/* COLOURS
+------------------------------------*/
+:root {
+	--color__error: #ee4040;
+	--color__bg: #fefefe;
+	--color__bg__alt: #fafafa;
+	--color__text: #111;
+	--color__btn__bg: #eee;
+	--color__btn_border__rest: #ddd;
+	--color__btn_border__focus: #ccc;
+	--gradient__btn__rest: linear-gradient(#fefefe 0% , #eee 75%);
+	--gradient__btn__hover: linear-gradient(#fff 50% , #eee 100%);
+}
+
 /* FONT RULES
 -----------------------------------*/
 html {
 	font-size: 16px;
 	font-family: "Open Sans", sans-serif;
+	color: var(--color__text);
 }
 
 
@@ -38,6 +60,7 @@ html {
 		justify-content: center;
 		align-items: center;
 		font-size: 0;
+		background-color: var(--color__bg);
 		
 	}
 		.output__canvas {
@@ -64,18 +87,25 @@ html {
 			.output__image__marker.left {   left:   -0.5em; }
 			.output__image__marker.right {  right:  -0.5em; }
 	.controls {
-		flex: 0 0 200px;
+		flex: 0 0 9rem;
 		width: 100%;
-		background-color: red;
 	}
-		.controls__basic {}
+		.controls__basic {
+			display: flex;
+			height: 100%;
+			background-color: var(--color__bg__alt);
+		}
 		.controls__advanced {
 			display: none; /* JUST SO THAT WE CAN DO EVERYTHING ELSE FIRST*/
 		}
 
 		/* FRAME LIST
 		--------------------------------*/
-		.frames__wrapper {}
+		.frames__wrapper {
+			flex-grow: 1;
+			white-space: nowrap;
+			overflow-x: scroll;
+		}
 			.frames__item {
 				display: inline-flex;
 				flex-direction: column;
@@ -89,20 +119,78 @@ html {
 					display: none;
 				}
 				.frames__frame:not([src=""]){
-					border: 1px dotted #000;
+					border: 1px dotted var(--color__text);
 				}
+
+		/* BASIC CONTROLS
+		--------------------------------*/
+		.controls__container__basic {
+			flex: 0 0 15rem;
+			display: grid;
+			height: 100%;
+			grid-template-columns: 1fr 1fr;
+			grid-template-areas: "input__height input__width"
+								 "input__fps input__add_frame"
+								 "input__submit input__submit";
+		}
+			.input__height {    grid-area: input__height; }
+			.input__width {     grid-area: input__width; }
+			.input__fps {       grid-area: input__fps; }
+				.input__fps::after {
+					content: "fps";
+					display: block;
+					font-size: 0.75em;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(1ch, -50%);
+					pointer-events: none;
+				}
+			.input__add_frame { grid-area: input__add_frame; }
+			.input__submit {    grid-area: input__submit; }
 
 		/* CONTROLS / INPUTS
 		--------------------------------*/	
-		.input__wrapper {}
-			.input__label {}
-			.input__element {}
-			.input__element.input__number {}
-			.input__element.input__button {}
-			.input__element.input__range {}
-			.input__tooltip {}
-			.input__tooltip__basic {}
-			.input__tooltip__advanced {}
+			.input__wrapper {
+				font-size: 0.9em;
+				padding: 0.25em;
+				position: relative;
+			}
+				.input__label {
+					display: none; /* HIDE BEHIND HOVER/FOCUS LATER*/
+				}
+				.input__element {
+					display: block;
+					height: 100%;
+					width: 100%;
+					text-align: center;
+					border-radius: 0.15em;
+					border: 1px solid transparent;
+
+				}
+					.input__element:hover,
+					.input__element:focus {
+						border: 1px solid var(--color__btn_border__focus);
+						outline: none;
+					}
+				.input__element.input__number {
+					box-shadow: inset 0.1em 0.1em rgba(0, 0, 0, 0.15);
+				}
+				.input__element.input__button {
+					border-color: var(--color__btn_border__rest);
+					background: var(--gradient__btn__rest);
+
+					transition: border-color 1s, background 1s;
+				}
+					.input__element.input__button:hover {
+						cursor: pointer;
+						background: var(--gradient__btn__hover);
+						border-color: var(--color__btn_border__focus);
+					}
+				.input__element.input__range {}
+				.input__tooltip {}
+				.input__tooltip__basic {}
+				.input__tooltip__advanced {}
 
 
 		/*ERRORS
@@ -119,8 +207,8 @@ html {
 					display: block;
 					padding: 1em;
 					text-align: center;
-					color: #fff;
-					background-color: #ee4040;
+					color: var(--color__bg);
+					background-color: var(--color__error);
 				}
 					.errors__list__item::before {
 						content: "WARNING: ";
