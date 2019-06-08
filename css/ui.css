@@ -21,7 +21,7 @@ input, button {
 :root {
 	--color__error: #ee4040;
 	--color__bg: #fefefe;
-	--color__bg__alt: #fafafa;
+	--color__bg__alt: #efefef;
 	--color__text: #111;
 	--color__btn__bg: #eee;
 	--color__btn_border__rest: #ddd;
