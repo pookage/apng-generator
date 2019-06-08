@@ -105,18 +105,72 @@ html {
 			flex-grow: 1;
 			white-space: nowrap;
 			overflow-x: scroll;
+			padding: 0 0.62em;
 		}
 			.frames__item {
 				display: inline-flex;
+				max-width: 100px;
+				height: 100%;
+				position: relative;
 				flex-direction: column;
+				justify-content: center;
+				align-items: center;
 				vertical-align: middle;
+				overflow: hidden;
 			}
 				.frames__frame {
-					max-width: 100px;
+					width: 100%;
 					height: auto;
 				}
-				.frames__frame:not([src=""]) ~ input{
+				.frames__file_input {
 					display: none;
+				}
+				.frames__label {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					text-align: center;
+					white-space: initial;
+					opacity: 0.2;
+					border-radius: 0.25em;
+					transition: opacity .3s;
+				}
+				.frames__label:hover,
+				.frames__frame:not([src=""]) ~ .frames__label:hover {
+					opacity: 0.8;
+					cursor: pointer;
+				}
+				.frames__frame[src=""] ~ .frames__label {
+					height: 100px;
+					width: 100px;
+					padding: 1em;
+					border: 2px solid #000;
+				}
+					.frames__label::after {
+						content: "";
+						font-size: 2em;
+						height: 1em;
+						width: 1em;
+						background-position: center;
+						background-size: contain;
+						background-repeat: no-repeat;
+					}
+					.frames__frame[src=""] ~ .frames__label::after {
+						background-image: url("./../assets/corner.svg");
+					}
+					.frames__frame:not([src=""]) ~ .frames__label::after {
+						background-image: url("./../assets/swap.svg");
+					}
+				.frames__frame:not([src=""]) ~ .frames__label{
+					height: 100%;
+					width: 100%;
+					position: absolute;
+					top: 0;
+					left: 0;
+					opacity: 0;
+					color: var(--color__btn__bg);
+					background-color: rgba(0,0,0,0.5);
 				}
 				.frames__frame:not([src=""]){
 					border: 1px dotted var(--color__text);

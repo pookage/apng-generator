@@ -80,6 +80,7 @@ function init(){
 		const frameOption = renderFrameOption();
 		app.elements.frames.appendChild(frameOption);
 		
+		scrollToEnd(app.elements.frames);
 		validateInputs(app.elements.frames, app.elements.addFrame, app.warnings.emptyFrame);
 		validateInputs(app.elements.app, app.elements.generate);
 	}//addFrameOption
@@ -92,6 +93,7 @@ function init(){
 		preview.src = imageSrc;
 		app.frames.push(frame);
 
+		setTimeout(scrollToEnd.bind(true, app.elements.frames), 100);
 		validateInputs(app.elements.frames, app.elements.addFrame, app.warnings.emptyFrame);
 		validateInputs(app.elements.app, app.elements.generate);
 	}//selectFrameFile
@@ -171,6 +173,31 @@ function init(){
 
 		app.elements.image.src = imgURL;
 	}//generateAPNG
+	function scrollToEnd(element, axis = "x"){
+		let key, property, value;
+		switch(axis){
+			case "x":
+				property = "left";
+				key      = "scrollLeft";
+				value    = "scrollWidth";
+				break;
+			case "y":
+				property = "top";
+				key      = "scrollTop"
+				value    = "scrollHeight";
+				break;
+		}
+
+		const distance    = element[value];
+
+		try {
+			const options     = { behavior: "smooth" };
+			options[property] = distance;
+			element.scrollTo(options)
+		} catch(error){
+			element[key] = distance;	
+		}
+	}//scrollToEnd
 
 
 	//RENDERING
@@ -180,17 +207,27 @@ function init(){
 		const li      = document.createElement("li");
 		const preview = document.createElement("img");
 		const input   = document.createElement("input");
+		const label   = document.createElement("label");
+		const id      = `file_input__${Date.now()}`;
 
+		label.className   = "frames__label";
+		label.htmlFor     = id;
+		label.title       = "Edit image";
+		
 		li.className      = "frames__item";
+
 		preview.className = "frames__frame";
 		preview.src       = "";
 
-		input.type     = "file";
-		input.required = "true";
+		input.className = "frames__file_input";
+		input.type      = "file";
+		input.required  = "true";
+		input.id        = id;
 
 		input.addEventListener("change", selectFrameFile.bind(true, preview));
 		li.appendChild(preview);
 		li.appendChild(input);
+		li.appendChild(label)
 
 		return li;
 	}//renderFrameOption
