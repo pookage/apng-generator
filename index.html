@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>APNG Generator</title>
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+
 
 		<link rel="stylesheet" href="css/ui.css">
 
@@ -21,10 +23,16 @@
 					class="output__canvas"	
 					id="output__generator__canvas">
 				</canvas>
-				<img 
-					class="output__image" 
-					id="output__generator__image"
-				/>
+				<span class="output__image__wrapper">
+					<img 
+						class="output__image__element" 
+						id="output__generator__image"
+					/>
+					<span class="output__image__marker left top"></span>
+					<span class="output__image__marker right top"></span>
+					<span class="output__image__marker right bottom"></span>
+					<span class="output__image__marker left bottom"></span>
+				</span>
 			</output>
 
 			<div class="controls">
@@ -53,7 +61,7 @@
 								id="input__canvas__height"
 								title="Height of the canvas in px"  
 								type="number" 
-								value="200" 
+								value="600" 
 								min="0" 
 								required
 							>
@@ -69,7 +77,7 @@
 								id="input__canvas__width"
 								title="Width of the canvas in px" 
 								type="number"
-								value="500" 
+								value="1000" 
 								min="0" 
 								required
 							>
@@ -176,8 +184,8 @@
 				</div>
 			</div>
 
-			<aside>
-				<ul 
+			<aside class="errors">
+				<ul class="errors__list" 
 					id="list__errors">
 				</ul>
 			</aside>

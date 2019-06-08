@@ -1,25 +1,73 @@
+/* NORMALIZATION
+-----------------------------------*/
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
+html, body {
+	height: 100%;
+}
 
-.wrapper {}
+/* FONT RULES
+-----------------------------------*/
+html {
+	font-size: 16px;
+	font-family: "Open Sans", sans-serif;
+}
+
+
+
+/* ELEMENTS
+-----------------------------------*/
+.wrapper {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	position: relative;
+	flex-direction: column;
+}
 
 	/* OUTPUT CANVAS / IMAGE 
 	-----------------------------------*/
 	.output {
+		flex: 1 0 auto;
+		display: flex;
+		width: 100%;
+		position: relative;
+		justify-content: center;
+		align-items: center;
 		font-size: 0;
-		display: inline-block;
-		background: url("./../assets/transparent.png") left top / 150px repeat ;
+		
 	}
 		.output__canvas {
 			display: none;
 		}
-		.output__image {
-			
+		.output__image__wrapper {
+			position: relative;
+			background: url("./../assets/transparent.png") left top / 150px repeat;
 		}
-	.controls {}
+			.output__image__element {
+				display: block;
+			}
+			.output__image__marker {
+				display: block;
+				font-size: 2rem;
+				height: 1em;
+				width: 1em;
+				position: absolute;
+				background: url("./../assets/corner.svg") center / contain no-repeat;
+				opacity: 0.5;
+			}
+			.output__image__marker.top {    top:    -0.5em; }
+			.output__image__marker.bottom { bottom: -0.5em; }
+			.output__image__marker.left {   left:   -0.5em; }
+			.output__image__marker.right {  right:  -0.5em; }
+	.controls {
+		flex: 0 0 200px;
+		width: 100%;
+		background-color: red;
+	}
 		.controls__basic {}
 		.controls__advanced {
 			display: none; /* JUST SO THAT WE CAN DO EVERYTHING ELSE FIRST*/
@@ -57,4 +105,24 @@
 			.input__tooltip__advanced {}
 
 
-
+		/*ERRORS
+		-----------------------------------*/
+		.errors {
+			display: block;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+			.errors__list {}
+				.errors__list__item {
+					display: block;
+					padding: 1em;
+					text-align: center;
+					color: #fff;
+					background-color: #ee4040;
+				}
+					.errors__list__item::before {
+						content: "WARNING: ";
+						font-weight: bold;
+					}

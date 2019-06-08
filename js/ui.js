@@ -47,6 +47,9 @@ function init(){
 					description: "The frame should be composited onto the output buffer based on its alpha"
 				}
 			}
+		},
+		warnings: {
+			emptyFrame: "Some frames don't have an image attached!"
 		}
 	};
 
@@ -77,7 +80,7 @@ function init(){
 		const frameOption = renderFrameOption();
 		app.elements.frames.appendChild(frameOption);
 		
-		validateInputs(app.elements.frames, app.elements.addFrame, "Make sure every frame has a file!");
+		validateInputs(app.elements.frames, app.elements.addFrame, app.warnings.emptyFrame);
 		validateInputs(app.elements.app, app.elements.generate);
 	}//addFrameOption
 	function selectFrameFile(preview, event){
@@ -89,7 +92,7 @@ function init(){
 		preview.src = imageSrc;
 		app.frames.push(frame);
 
-		validateInputs(app.elements.frames, app.elements.addFrame, "Make sure every frame has a file!");
+		validateInputs(app.elements.frames, app.elements.addFrame, app.warnings.emptyFrame);
 		validateInputs(app.elements.app, app.elements.generate);
 	}//selectFrameFile
 	function syncOutputDimensions(){
@@ -196,6 +199,7 @@ function init(){
 
 		for(let error of errors){
 			const li     = document.createElement("li");
+			li.className = "errors__list__item";
 			li.innerText = error;
 			fragment.appendChild(li);
 		}
